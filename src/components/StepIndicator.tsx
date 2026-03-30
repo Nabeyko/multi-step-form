@@ -11,8 +11,8 @@ export const StepIndicator = ({ currentStep }: { currentStep: number }) => {
             className={cn(
               "w-8 h-8 rounded-full flex items-center justify-center font-medium",
               {
-                "bg-[#3b82f6] text-white": currentStep === step,
-                "bg-[#e5e7eb] text-[#9ca3af]": currentStep !== step,
+                "bg-blue-600 text-white": currentStep === step,
+                "bg-gray-200 text-gray-500": currentStep !== step,
               },
             )}
           >

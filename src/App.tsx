@@ -1,6 +1,7 @@
-import { useState } from 'react';
-import { StepIndicator } from './components/StepIndicator';
-import { MultiStepForm } from './components/MultiStepForm';
+import { useState } from "react";
+import { StepIndicator } from "./components/StepIndicator";
+import { MultiStepForm } from "./components/MultiStepForm";
+import { ButtonBack, ButtonNext, ButtonSubmit } from "./components/Button";
 
 export const App = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
@@ -13,6 +14,16 @@ export const App = () => {
 
       <section className="w-full max-w-[480px] bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
         <MultiStepForm currentStep={currentStep} />
+
+        <div className="flex justify-between w-full mt-8">
+          {currentStep > 1 ? <ButtonBack /> : <div />}
+
+          {currentStep < 3 && <ButtonNext />}
+
+          {currentStep === 3 && (
+            <ButtonSubmit />
+          )}
+        </div>
       </section>
     </main>
   );
