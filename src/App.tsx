@@ -1,40 +1,17 @@
 import { useState } from "react";
 import { StepIndicator } from "./components/StepIndicator";
-import { MultiStepForm } from "./components/MultiStepForm";
-import { ButtonBack, ButtonNext, ButtonSubmit } from "./components/Button";
 import type { FormData } from "./types/form";
+import { MultiStepForm } from "./components/MultiStepForm";
 
 const initialFormData: FormData = {
-  step1: {
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    dateOfBirth: "",
-  },
-  step2: {
-    country: "",
-    city: "",
-    streetAddress: "",
-    zipCode: "",
-  },
-  step3: {
-    agreeTerms: false,
-    subscribe: false,
-  },
+  step1: { firstName: "", lastName: "", email: "", phone: "", dateOfBirth: "" },
+  step2: { country: "", city: "", streetAddress: "", zipCode: "" },
+  step3: { agreeTerms: false, subscribe: false },
 };
 
 export const App = () => {
   const [currentStep, setCurrentStep] = useState<number>(1);
   const [formData, setFormData] = useState<FormData>(initialFormData);
-
-  const handleNext = () => setCurrentStep((prev) => Math.min(prev + 1, 3));
-  const handleBack = () => setCurrentStep((prev) => Math.max(prev - 1, 1));
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log(JSON.stringify(formData, null, 2));
-  };
 
   return (
     <main className="min-h-screen bg-[#f8f7f3] flex flex-col items-center py-10 px-4">
@@ -47,14 +24,10 @@ export const App = () => {
           currentStep={currentStep}
           formData={formData}
           setFormData={setFormData}
-          onSubmit={handleSubmit}
+          onNext={() => setCurrentStep((prev) => Math.min(prev + 1, 3))}
+          onBack={() => setCurrentStep((prev) => Math.max(prev - 1, 1))}
+          onSubmit={() => console.log(JSON.stringify(formData, null, 2))}
         />
-
-        <div className="flex justify-between w-full mt-8">
-          {currentStep > 1 ? <ButtonBack onClick={handleBack} /> : <div />}
-          {currentStep < 3 && <ButtonNext onClick={handleNext} />}
-          {currentStep === 3 && <ButtonSubmit />}
-        </div>
       </section>
     </main>
   );
