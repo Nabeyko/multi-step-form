@@ -40,7 +40,17 @@ export const MultiStepForm = ({
           }
         />
       )}
-      {currentStep === 3 && <Step3Confirmation />}
+      {currentStep === 3 && (
+        <Step3Confirmation
+          data={formData.step3}
+          onChange={(field, value) =>
+            setFormData((prev) => ({
+              ...prev,
+              step3: { ...prev.step3, [field]: value },
+            }))
+          }
+        />
+      )}
     </form>
   );
 };
